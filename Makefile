@@ -26,7 +26,7 @@ $(TARGET): $(OBJS)
 	@$(CXX) $^ -o $(TARGET)
 
 $(OUT_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OUT_DIR)
-	@if [ -n "$(M)" ]; then echo "CXX[M] $(notdir $<)"; else echo "CXX $(notdir $<)"; fi
+	@if [ -n "$(M)" ]; then echo "CXX[M] $(M)/$(notdir $<)"; else echo "CXX $(notdir $<)"; fi
 	@$(CXX) -c $< $(CXXFLAGS) -o $@
 
 $(OUT_DIR):
@@ -36,5 +36,7 @@ $(OUT_DIR):
 clean:
 	@echo "CLEAN"
 	@rm -rf $(TARGET) $(OUT_DIR)
+
+build: clean all
 
 .PHONY: $(PHONY)
