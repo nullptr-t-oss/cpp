@@ -22,7 +22,9 @@ OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OUT_DIR)/%.o, $(SRCS))
 TARGET ?= app
 
 CXX := clang++
-CXXFLAGS := -Wall -Wextra -I$(INC_DIR)
+CXXFLAGS := -std=c++17 -Wall -Wextra -pedantic-errors \
+            -Weffc++ -Wconversion -Wsign-conversion \
+            -I$(INC_DIR)
 PHONY:= all clean build debug release
 
 all: $(TARGET)
