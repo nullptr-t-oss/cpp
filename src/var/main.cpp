@@ -1,8 +1,17 @@
 #include <iostream>
 
+void doNothing(int*)
+{
+}
+
+void doNothing2(int&)
+{
+}
+
 int main([[maybe_unused]] int argc, [[maybe_unused]] char const *argv[])
 {
     [[maybe_unused]] int _def;    /* default initilization*/
+    [[maybe_unused]] int __def;
     int a = 2;   /* traditional copy initialization */ 
     int b ( 5 ); /* traditional direct initialization */
     int c { 3 }; /* modern direct-list initialization */
@@ -16,9 +25,21 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char const *argv[])
     b = a = 9; /* works ; same in Java */
     // d { 8 };
 
+    /* trick compiler into thinking that we are not using uninitialized __def variable
+     * hence silencing the errors/warning(s)
+     */
+    // doNothing(&__def);
+    doNothing2(__def);
+    std::cout << "__def is: " << __def << "; size of __def if: " << sizeof(__def) << '\n';
+
+
+    /* if _def is printed it will produce gibberish values since its not initialized */
     std::cout << a << b << c << d << e << f << std::endl; /* try avoiding endl for muliple LF since it flushes the buffer everytime */
 
-    std::cout << '/n'; /* 12142 */
+    /* '/' maps to 0x2F and 'n' maps to 0x6E in ASCII
+     *  combining we get: 0x2F6E which translates to 12142
+     */
+    std::cout << '/n' << '\n'; /* 12142 */
 
     int x{}, y{}, z{};
 
