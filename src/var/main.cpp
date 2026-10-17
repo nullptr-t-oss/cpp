@@ -41,13 +41,16 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char const *argv[])
      */
     std::cout << '/n' << '\n'; /* 12142 */
 
-    int x{}, y{}, z{};
+    int x{}, y{}, z{4};
 
     std::cout << "Enter two numbers: ";
 
-    /* when input is s 5a 6, then output is 5 and 0
-     * when input is 5 6a, then output is 5 and 6
-     * when input is 5a 6 7, then output is 5, 0 and 0 ; since extraction failed since first encounter of a and its not flushed
+    /* when input is 5a 6, then output is 5, 0 and 4
+     * when input is 5 6a, then output is 5, 6 and 0
+     * when input is 5a 6 7, then output is 5, 0 and 4 ; since extraction failed since first encounter of a and its not flushed
+     *  if an extraction fails due to a type mismatch, the variable that caused the failure is assigned a value of 0
+     *  and queued up variables are skipped (thats why 5 6a produced 0 for z and 5a 6 didnt bcoz in the former, 
+     *                                       extraction failed at z but in the latter if failed at y)
      */
     std::cin >> x >> y >> z;
     std::cout << "x is: " << x << " y is: " << y << " z is: " << z << '\n';
