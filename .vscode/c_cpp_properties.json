@@ -3,8 +3,7 @@
         {
             "name": "Linux",
             "includePath": [
-                "${default}",
-                "${workspaceFolder}/inc/dynamic_arr/v1"
+                "${default}"
             ],
             "defines": [],
             "intelliSenseMode": "linux-clang-x64",
