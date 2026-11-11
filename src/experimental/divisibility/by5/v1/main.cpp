@@ -86,8 +86,25 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char const *argv[])
      *  i th index, now extact i th bit, and check if its one or not
      * 
      * 0b1000 0100 0010 0001 translates to: 0x8421
+     * 
+     * or maybe use the pattern that every 2nd bit are same??
+     *    A B C D
+     * 0b 0 0 0 0
+     * 0b 0 1 0 1
+     * 0b 1 0 1 0
+     * 0b 1 1 1 1
+     * 
+     * notice how bit A and C are same; and how B and D are same
+     * 
+     * (n >> 2) gives bit 0b BIT(A) BIT(B)
+     * now check if its same with C and D using XOR
+     * (n & 0x3) gives last 2 bits
+     * 
+     * hence our alternate check:
+     *   (n >> 2) ^ (n & 0x3) == 0
+     * 
      */
-    bool is_div_by5 = (0x8421 >> n) & 1;
+    bool is_div_by5 = (0x8421 >> n) & 0x1;
 
     if(is_div_by5)
         std::cout << "n is divisible by 5\n";
